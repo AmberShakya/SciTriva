@@ -1,0 +1,112 @@
+<html lang="en">
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="login.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form>
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input class="signupuser" type="text" name="txt" placeholder="User name" required="" value="">
+					<input class="signupemail" type="email" name="email" placeholder="Email" required="" value="">
+					<input class="signuppass" type="password" name="pswd" placeholder="Password" required="" value="">
+					
+				</form>
+				<button class="signupbutton">Sign up</button>
+			</div>
+
+			<div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input class="loginemail" type="email" name="email" placeholder="Email" required="" value="">
+					<input class="loginpass" type="password" name="pswd" placeholder="Password" required="" value="">
+					<button class="loginbutton">Login</button>
+				</form>
+			</div>
+	</div>
+
+	<script>
+		document.getElementsByClassName("signupbutton")[0].addEventListener("click",function(e){
+    		e.preventDefault();
+			localStorage.clear();
+    		var user = document.getElementsByClassName("signupuser")[0].value;
+			var email = document.getElementsByClassName("signupemail")[0].value;
+			var pass = document.getElementsByClassName("signuppass")[0].value;
+			if(user == "" || email == "" || pass == ""){
+				alert("Please fill in all the details");
+			}
+			else{
+				signup(user,email,pass);
+			}
+
+		})
+
+		document.getElementsByClassName("loginbutton")[0].addEventListener("click",function(e){
+			e.preventDefault();
+			localStorage.clear();
+			var email = document.getElementsByClassName("loginemail")[0].value;
+			var pass = document.getElementsByClassName("loginpass")[0].value;
+			if(email == "" || pass == ""){
+				alert("Please fill in all the details");
+			}
+			else{
+				login(email,pass);
+			}
+		})
+
+		async function signup(user,email,pass){
+			try{
+				var res = await axios.post("http://localhost:3000/signup",{username:user,email:email},{
+					headers:{
+						"password":pass
+					}
+				})
+				if(res.data.result == "User added successfully!!"){
+					alert(res.data.result)
+				}
+				else{
+					alert(res.data.result)
+				}
+
+
+			}
+			catch(err){
+				alert("Some exception occured")
+				console.log(err)
+
+			}
+		}
+
+		async function login(email,pass){
+			try{
+				var res = await axios.get("http://localhost:3000/login",{params:{email:email,password:pass}})
+				if(res.data.result == "Successfully logged in!!"){
+					localStorage.setItem("email",email);
+					alert(res.data.result)
+					location.href = "quiz.html";
+				}
+				else{
+					alert(res.data.result)
+				}
+
+
+			}
+			catch(err){
+				alert("Some exception occured")
+				console.log(err)
+
+			}
+		}
+
+	</script>
+
+
+
+</body>
+</html>

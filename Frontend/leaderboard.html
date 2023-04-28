@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="leaderboard.css">
+    <title>Document</title>
+</head>
+<body>
+    <p class="heading">Leaderboard</p>
+    <div class="flex">
+    <table class="table">
+
+    </table>
+
+    <button class="retry">Retry</button>
+</div>
+
+
+    <script>
+
+        window.addEventListener("load",start);
+
+        async function start(){
+            var lead = await getdetails();
+            var a = lead.data.result;
+            a.sort(function(a,b){return parseInt(b[1])-parseInt(a[1])});
+            const table = document.getElementsByClassName("table")[0];
+            var s = "<tr><th>"+a[0][0]+"</th><th>"+a[0][1]+"</th></tr>";
+            for(let i = 1; i<a.length; i++){
+                s+="<tr><td>"+a[i][0]+"</td><td>"+a[i][1]+"</td></tr>";
+            }
+            table.innerHTML = s;
+
+        }
+
+        async function getdetails(){
+            var response = await axios.get("http://localhost:3000/leaderboard")
+            if(response.status == 200){
+                return response;
+            }
+            else{
+                console.log("error");
+                return response;
+            }
+        }
+
+        document.getElementsByClassName("retry")[0].addEventListener("click",()=>{
+            location.href = "quiz.html";
+        })
+
+    </script>
+    
+</body>
+</html>
