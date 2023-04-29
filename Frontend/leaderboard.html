@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="leaderboard.css">
-    <title>Document</title>
+    <title>Leaderboard</title>
 </head>
 <body>
     <p class="heading">Leaderboard</p>
@@ -15,6 +15,7 @@
     </table>
 
     <button class="retry">Retry</button>
+    <button class="logout">Logout</button>
 </div>
 
 
@@ -48,6 +49,9 @@
 
         document.getElementsByClassName("retry")[0].addEventListener("click",()=>{
             location.href = "quiz.html";
+        })
+        document.getElementsByClassName("logout")[0].addEventListener("click",function(){
+            location.href = "login.html";
         })
 
     </script>

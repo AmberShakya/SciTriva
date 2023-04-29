@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cpp = require('compile-run');
 const { runCppFile, runCppFileAndReturnPromise } = require("compile-run/dist/lib/cpp/run-file");
+require("dotenv").config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
@@ -114,6 +115,6 @@ resultPromise
     })
 })
 
-app.listen(3000,function(err){
-    console.log("server running at 3000");
+app.listen(process.env.PORT,function(err){
+    console.log("server running at "+process.env.PORT);
 })
