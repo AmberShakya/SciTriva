@@ -28,9 +28,7 @@
     </div>
     <div class="result">
         <div class="dispscore"></div>
-        <button class="retry">Retry</button>
         <button class="leaderboard">Leaderboard</button>
-        <button class="logout">Logout</button>
     </div>
 
 
@@ -42,10 +40,9 @@
         var myinterval;
         var sunmitted = 0;
         var score = 0;
-        //start();
+        start();
 
         async function start(){
-            
             questions =await getquestions();
             var current = 0;
             //setInterval(nextquestion,3000,)
@@ -99,8 +96,7 @@
 
         async function getquestions(){
             try {
-                const response = await fetch("https://the-trivia-api.com/api/questions?limit=10");
-                console.log(response)
+                const response = await fetch("https://the-trivia-api.com/api/questions?limit=10&categories=Science");
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -137,7 +133,6 @@
                     "email":localStorage.getItem("email"),
                     "score":score
                 })
-                console.log(response);
                 if(response.status != 200){
                     console.log("error");
                 }
@@ -164,13 +159,12 @@
                 if(answ[i].value == questions[current].correctAnswer && answ[i].checked == true){
                     flag = 1;
                     score+=10;
-                    break;
                 }
                 answ[i].disabled = true;
             }
             feedback.style.opacity = 1;
             if(flag == 0){
-                feedback.innerHTML = "Your answer is wrong";
+                feedback.innerHTML = "<p> Your answer is wrong </p> <p> The correct answer is: "+questions[current].correctAnswer+"</p>";
                 feedback.style.backgroundColor = "red";
             }
             else{
@@ -179,20 +173,11 @@
             }
         })
 
-        document.querySelectorAll(".retry")[0].addEventListener("click",function(){
-            location.reload();
-        })
-
         document.getElementsByClassName("leaderboard")[0].addEventListener("click",async ()=>{
             const resp = await postscore();
             location.href = "leaderboard.html";
         })
-        document.getElementsByClassName("logout")[0].addEventListener("click",function(){
-            localStorage.clear();
-            location.href = "login.html";
-        })
 
-        window.addEventListener("load",start);
     </script>
 </body>
 </html>
