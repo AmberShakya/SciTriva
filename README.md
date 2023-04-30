@@ -4,7 +4,9 @@ SciQuizzy is a web application that generates scientific quizzes with non-repeti
 
 What's used:
 C++, Node.js
+
 Setup Locally:
+
 Git Clone SciQuizzy
 
 CD to SciQuizzy
@@ -12,8 +14,13 @@ CD to SciQuizzy
 Install dependencies
 
 npm install
+
 Create an .env file and reference the parameters from .env.example file
+
 Run Locally:
+
 Run the dev server
+
 npm run dev
+
 Open localhost:3000 in browser
